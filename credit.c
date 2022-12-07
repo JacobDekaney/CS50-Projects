@@ -21,8 +21,8 @@ int main(void)
         return 0;
     }
 
-    tmp = credit / 10; //divides by ten to remove the least
-    while (tmp > 0) {
+    tmp = credit / 10; //divides by ten to remove the least significant digit
+    while (tmp > 0) { //while loop multiplies every other digit by 2, then adds the digits of the products together
         mult = (tmp % 10);
         
         mult *= 2;
@@ -41,18 +41,18 @@ int main(void)
 
     tmp = credit;
 
-    while (tmp > 0) {
+    while (tmp > 0) { //while loop adds the other digits to the sum
         mult = tmp % 10;
         sum += mult;
         tmp /= 100;
     }
 
-    while (credit > 100) {
+    while (credit > 100) { //while loop continues to divide the credit number until only the two most significant digits remain
         credit /= 10;
     }
 
-    if (0 == sum % 10) {
-        //printf("test\n");
+    if (0 == sum % 10) { //if the sum value is divisible by 10 then it is a valid credit card number, the following code checks, and prints, the credit car company
+        
         if (4 == credit || (40 <= credit && 50 > credit)) {
             printf("VISA\n");
         }
