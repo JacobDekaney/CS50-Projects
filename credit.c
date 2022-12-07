@@ -1,23 +1,30 @@
+/*
+Code created for the CS50 certification course
+
+Code with take an number input from the user and verfiy that
+the number is a valid credit card number by following Luhn's
+algorithm
+*/
+
 #include <cs50.h>
 #include <stdio.h>
 
 int main(void)
 {
-    long credit = get_long("Number: ");
+    long credit = get_long("Number: "); //gets user input
     long tmp = credit;
     int mult = 0;
     int sum = 0;
-    //4003600000000014
-    if (credit < 9000000000){
+    
+    if (credit < 9000000000){ //if the credit card is under a certain value the program will reject it and terminate
         printf("INVALID\n");
         return 0;
     }
 
-    tmp = credit / 10;
+    tmp = credit / 10; //divides by ten to remove the least
     while (tmp > 0) {
-        //printf("%ld\n",(tmp % 10) % 10);
         mult = (tmp % 10);
-        //printf("%d\n", mult);
+        
         mult *= 2;
         if (mult >= 10) {
             while (mult > 0) {
@@ -32,8 +39,6 @@ int main(void)
         tmp /= 100;
     }
 
-    //printf("%d\n", sum);
-
     tmp = credit;
 
     while (tmp > 0) {
@@ -41,15 +46,10 @@ int main(void)
         sum += mult;
         tmp /= 100;
     }
-    //printf("%d\n", sum);
-
 
     while (credit > 100) {
         credit /= 10;
     }
-
-    //printf("%ld\n", credit);
-
 
     if (0 == sum % 10) {
         //printf("test\n");
