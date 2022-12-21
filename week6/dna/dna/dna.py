@@ -4,15 +4,58 @@ import sys
 
 def main():
 
-    # TODO: Check for command-line usage
+    titles = []
+    people = []
 
-    # TODO: Read database file into a variable
-    
-    # TODO: Read DNA sequence file into a variable
+# opens file
 
-    # TODO: Find longest match of each STR in DNA sequence
+    if len(sys.argv) > 3:
+        exit()
+    else:
+        database = sys.argv[1]
+        sequence = sys.argv[2]
 
-    # TODO: Check database for matching profiles
+# reads database in titles and people variables
+
+    with open(database, 'r') as csvfile:
+        file = csv.reader(csvfile)
+
+        titles = next(file)
+
+        for row in file:
+            people.append(row)
+
+# reads sequence into dna variable
+
+    seq = open(sequence, 'r')
+    dna = seq.read()
+    #seqs = (letter for letter in dna if letter != 'A')
+
+# finds longest match of each STR in DNA sequence
+
+    titles.pop(0)
+    STRs = []
+
+    for STR in titles:
+        STRs.append(longest_match(dna, STR))
+
+# checks database for profiel match
+
+    for x in range(len(STRs)):
+        i = 0
+        for y in range(len(people[x]))[1::]:
+            if str(STRs[y-1]) == people[x][y]:
+                i = i + 1
+            if i == len(people[x]) - 1:
+                break
+        else:
+            continue
+        break
+
+    if i == len(people[x]) - 1:
+        print(people[x][0])
+    else:
+        print("No Match")
 
     return
 
@@ -43,11 +86,11 @@ def longest_match(sequence, subsequence):
             # If there is a match in the substring
             if sequence[start:end] == subsequence:
                 count += 1
-            
+
             # If there is no match in the substring
             else:
                 break
-        
+
         # Update most consecutive matches found
         longest_run = max(longest_run, count)
 
